@@ -1,0 +1,18 @@
+body {
+	padding:           0% 10%; 
+	color:             #00FF00; 
+	background-color:  #000000;
+	font-family:       monospace;
+}
+a {
+	color:             #00FFFF;
+}
+
+.code {
+	color:             #FFFFFF; 
+	background-color:  #383838;
+}
+
+.wsp {
+	white-space:       pre;
+}

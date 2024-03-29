@@ -2,18 +2,7 @@
 
 <html>
 	<head>
-	<style>
-		body {
-			padding:           0% 10%; 
-			color:             #00FF00; 
-			background-color:  #000000;
-			font-family:       monospace;
-		}
-		a {
-			color:             #00FFFF;
-		}
-
-	</style>
+	<link rel="stylesheet" type="text/css" href="../style.css">
 	</head>
 
 
@@ -22,13 +11,13 @@
 		<h1> 16b1x CPU </h1>
 		date: 2022-02-22 (yes, single day) <br>
 		desc: first CPU ever done, HEAVILY inspired by <a href="../Knowledge/resources.html">UCB CS61C</a>, contains massive mistakes and bad design decisions <br>
-		code: not available, maybe will be, not sure <br> 
+		proj: not available, maybe will be, not sure <br> 
 
 		<br>
 		<br>
 		<br>
 
-			<img src="p16b1x_i0-cpu.png" alt="schematic">
+			<img src="./images/p16b1x_i0-cpu.png" alt="schematic">
 
 		<p>
 			<h2> OVERVIEW </h2>
@@ -46,21 +35,21 @@
 			
 			<h3> instructions: </h3>
 			<ul>
-				<li style="white-space: pre;"> mvr    Rd, Rs    # Rd    &lt;-- Rs             </li>
-				<li style="white-space: pre;"> mvi    Rd, imm8  # Rd    &lt;-- imm8           </li>
-				<li style="white-space: pre;"> lod    Rd, Rs    # Rd    &lt;-- M[Rs]          </li>
-				<li style="white-space: pre;"> str    Rd, Rs    # M[Rs] &lt;-- Rs             </li>
-				<li style="white-space: pre;"> add    Rd, Rs    # Rd    &lt;-- Rd +  Rs       </li>
-				<li style="white-space: pre;"> sub    Rd, Rs    # Rd    &lt;-- Rd -  Rs       </li>
-				<li style="white-space: pre;"> and    Rd, Rs    # Rd    &lt;-- Rd &amp;  Rs   </li>
-				<li style="white-space: pre;"> or     Rd, Rs    # Rd    &lt;-- Rd |  Rs       </li>
-				<li style="white-space: pre;"> xor    Rd, Rs    # Rd    &lt;-- Rd ^  Rs       </li>
-				<li style="white-space: pre;"> not    Rd, Rs    # Rd    &lt;--    ~  Rs       </li>
-				<li style="white-space: pre;"> sll    Rd, Rs    # Rd    &lt;-- Rd &lt;&lt; Rs </li>
-				<li style="white-space: pre;"> srl    Rd, Rs    # Rd    &lt;-- Rd &gt;&gt; Rs </li>
-				<li style="white-space: pre;"> jnz    Rd, imm8  # if(Rd != 0) PC &lt;-- imm8  </li>
+				<li class=wsp> mvr    Rd, Rs    # Rd    &lt;-- Rs             </li>
+				<li class=wsp> mvi    Rd, imm8  # Rd    &lt;-- imm8           </li>
+				<li class=wsp> lod    Rd, Rs    # Rd    &lt;-- M[Rs]          </li>
+				<li class=wsp> str    Rd, Rs    # M[Rs] &lt;-- Rs             </li>
+				<li class=wsp> add    Rd, Rs    # Rd    &lt;-- Rd +  Rs       </li>
+				<li class=wsp> sub    Rd, Rs    # Rd    &lt;-- Rd -  Rs       </li>
+				<li class=wsp> and    Rd, Rs    # Rd    &lt;-- Rd &amp;  Rs   </li>
+				<li class=wsp> or     Rd, Rs    # Rd    &lt;-- Rd |  Rs       </li>
+				<li class=wsp> xor    Rd, Rs    # Rd    &lt;-- Rd ^  Rs       </li>
+				<li class=wsp> not    Rd, Rs    # Rd    &lt;--    ~  Rs       </li>
+				<li class=wsp> sll    Rd, Rs    # Rd    &lt;-- Rd &lt;&lt; Rs </li>
+				<li class=wsp> srl    Rd, Rs    # Rd    &lt;-- Rd &gt;&gt; Rs </li>
+				<li class=wsp> jnz    Rd, imm8  # if(Rd != 0) PC &lt;-- imm8  </li>
 			</ul>
-			<h3> instruction format: </h5>
+			<h3> instruction format: </h3>
 			<b> r-format </b> <br>
 			<pre>
 	15    12 11  8 7   6 5      0
@@ -89,7 +78,8 @@
 			<p>
 				the very best thing is that it works <br>
 				example program calculating fibonacci sequence: </br>
-			<pre>
+			<pre class=code>
+
 	mvi 	A, 0x0
 	mvi 	B, 0x1
 
@@ -140,7 +130,7 @@ LABEL loop
 			<p>
 				zero register is completely useless and terribly inefficient idea for cpu with 8 registers in total <br>
 				it was kind of needed because of lack of immediate operand for every instruction (see above) <br>
-				nonetheless, if it was needed then simple mvi Rd, 0 would suffice and would not waste register always <br>
+				nonetheless, if it was needed then simple <span class="code">mvi Rd, 0</span> would suffice and would not waste register always <br>
 			</p>
 
 			<h2> THE UGLY </h2>
