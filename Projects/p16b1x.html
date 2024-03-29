@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+	<style>
+		body {
+			padding:           0% 10%; 
+			color:             #00FF00; 
+			background-color:  #000000;
+			font-family:       monospace;
+		}
+		a {
+			color:             #00FFFF;
+		}
+
+	</style>
+	</head>
+
+
+	<body>
+		<a href="./index.html">go back</a>
+		<h1> 16b1x CPU </h1>
+		date: 2022-02-22 (yes, single day) <br>
+		desc: first CPU ever done, HEAVILY inspired by <a href="../Knowledge/resources.html">UCB CS61C</a>, contains massive mistakes and bad design decisions <br>
+		code: not available, maybe will be, not sure <br> 
+
+		<br>
+		<br>
+		<br>
+
+			<img src="p16b1x_i0-cpu.png" alt="schematic">
+
+		<p>
+			<h2> OVERVIEW </h2>
+			as the name suggests, its 16bit cpu <br>
+			the ISA is very simple and does not even utilize all space for instructions <br>
+			design is pretty much copycat (not intentional!) of what was shown in course because that was all I knew at that time <br>
+			it was complicated enough to get everything working without thinking about design too much, later projects radically improved on that side <br>
+			instruction and data memory are split so every instruction takes exactly 1 cycle <br>
+			<br>
+			CPU was implemented in logisim and I was assembler for longer than I would like to admit before writing proper one in c++ <br>
+		</p>
+
+		<p>
+			<h2> ISA </h2>
+			
+			<h3> instructions: </h3>
+			<ul>
+				<li style="white-space: pre;"> mvr    Rd, Rs    # Rd    &lt;-- Rs             </li>
+				<li style="white-space: pre;"> mvi    Rd, imm8  # Rd    &lt;-- imm8           </li>
+				<li style="white-space: pre;"> lod    Rd, Rs    # Rd    &lt;-- M[Rs]          </li>
+				<li style="white-space: pre;"> str    Rd, Rs    # M[Rs] &lt;-- Rs             </li>
+				<li style="white-space: pre;"> add    Rd, Rs    # Rd    &lt;-- Rd +  Rs       </li>
+				<li style="white-space: pre;"> sub    Rd, Rs    # Rd    &lt;-- Rd -  Rs       </li>
+				<li style="white-space: pre;"> and    Rd, Rs    # Rd    &lt;-- Rd &amp;  Rs   </li>
+				<li style="white-space: pre;"> or     Rd, Rs    # Rd    &lt;-- Rd |  Rs       </li>
+				<li style="white-space: pre;"> xor    Rd, Rs    # Rd    &lt;-- Rd ^  Rs       </li>
+				<li style="white-space: pre;"> not    Rd, Rs    # Rd    &lt;--    ~  Rs       </li>
+				<li style="white-space: pre;"> sll    Rd, Rs    # Rd    &lt;-- Rd &lt;&lt; Rs </li>
+				<li style="white-space: pre;"> srl    Rd, Rs    # Rd    &lt;-- Rd &gt;&gt; Rs </li>
+				<li style="white-space: pre;"> jnz    Rd, imm8  # if(Rd != 0) PC &lt;-- imm8  </li>
+			</ul>
+			<h3> instruction format: </h5>
+			<b> r-format </b> <br>
+			<pre>
+	15    12 11  8 7   6 5      0
+	[OPCODE] [Rd ] [Rs ] [UNUSED]
+			</pre>
+			<b> i-format </b> <br>
+			<pre>
+	15    12 11  8 7    0 
+	[OPCODE] [Rd ] [IMM8] 
+			</pre>
+			note: ^ this is wrong, see THE BAD
+			<h3> registers: </h3>
+			all are 16bit
+			<ul>
+				<li> Z hardwired to 0                           </li>
+				<li> A GP 0                                     </li>
+				<li> B GP 1                                     </li>
+				<li> C GP 2                                     </li>
+				<li> D GP 3                                     </li>
+				<li> E GP 4                                     </li>
+				<li> F GP 5                                     </li>
+				<li> SP Stack Pointer (not special from HW POV) </li>
+			</ul>
+
+			<h2> THE GOOD </h2>
+			<p>
+				the very best thing is that it works <br>
+				example program calculating fibonacci sequence: </br>
+			<pre>
+	mvi 	A, 0x0
+	mvi 	B, 0x1
+
+#(n + 2)th fib number
+	mvi 	E, 0x5
+#to be able to subtract one
+	mvi 	F, 0x1
+
+LABEL loop
+	#C = A + B
+	mvr 	C, A
+	add 	C, B
+
+	#A = B
+	mvr 	A, B
+	#B = C
+	mvr 	B, C
+
+	#M[0] = C
+	str 	C, ZERO
+
+	#E -= F
+	sub 	E, F
+
+	jnz 	E, loop
+
+			</pre>
+			</p>
+
+			<p>
+				its hard to find any other thing that is noteworthy good <br>
+				at the time I was proud of using mux to select correct control signals instead of combinational logic <br>
+				later I realized that not only this is quite common, I shouldve used ROM component directly <br>
+			</p>
+
+			<h2> THE BAD </h2>
+
+			<p>
+				the worst thing in this design is that I somehow skipped a bit <br>
+				instruction format shown previously has bits 11:8 assigned for Rd, its 4 not 3, Rs has bits 7:6, its 2 not 3 <br>
+				correct thing would be Rd - 11:9, Rs - 8:6 <br>
+				for r-format its not so bad as total bit count states the same but immediate has wasted bit that is not used for anything for no reason <br>
+				since r-format and i-format have unused bits then this additional bit could be used to select between reg/immediate as second operand and it would be way more convientient to code <br>
+				later designs fixed this issue in exactly this way<br>
+				I became aware of this while wiring control, I was tired already so I decided that I dont care <br>
+			</p>
+
+			<p>
+				zero register is completely useless and terribly inefficient idea for cpu with 8 registers in total <br>
+				it was kind of needed because of lack of immediate operand for every instruction (see above) <br>
+				nonetheless, if it was needed then simple mvi Rd, 0 would suffice and would not waste register always <br>
+			</p>
+
+			<h2> THE UGLY </h2>
+
+			<p>
+				ISA mentions SP but it was not used as I just didnt implement it <br>
+				similarly my local isa.txt mentions memory regions but again, it was not implemented <br>
+			</p>
+
+			<p>
+				seperated data/instruction memory was ok at the time but was suboptimal and later designs changed it <br>
+				in fact, main purpose of 2nd iteration was to unify memory and fix terrible mistakes here <br>
+			</p>
+		</p>
+
+
+		<a href="./index.html">go back</a>
+	</body>
+</html>
