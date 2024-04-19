@@ -19,16 +19,16 @@
 		<br>
 
 
-		<h2> OVERVIEW </h2>
+		<hr> <h2 id=overview> OVERVIEW </h2>
 		<img width="50%" src="./Images/p16b2x_i0-cpu-v0.png" alt="schematic of v0"><br>
 		<a href="./Images/p16b2x_i0-cpu-v0.png">full image</a><br>
 		<br>
 		<br>
 		
-		as with previous design, this CPU was initially done in logisim <br>
-		this time there were no major flaws in the ISA, general layout was somewhat inspired by <a href="../Knowledge/resources.html">SAP from Digital Computer Electronics</a> (same thing that Ben Eater used for <a href=https://www.youtube.com/playlist?list=PLowKtXNTBypGqImE405J2565dvjafglHU>8 bit computer</a>)<br>
+		as with <a href=./p16b1x.html>previous design</a>, this CPU was initially done in logisim <br>
+		this time there were no major flaws in the ISA, general layout was somewhat inspired by <a href="../Knowledge/resources.html#computer_architecture>books>dce">SAP from Digital Computer Electronics</a> (same thing that Ben Eater used for <a href=https://www.youtube.com/playlist?list=PLowKtXNTBypGqImE405J2565dvjafglHU>8 bit computer</a>)<br>
 		pretty much everything that had to be fixed from previous design, was fixed <br>
-		as note near ROM/RAM (and as some features of ISA which is described below) suggests, project was not fully complete then (or ever) <br> 
+		as note near ROM/RAM (and as some features of <a href=#isa>ISA, described below</a>) suggests, project was not fully complete then (or ever) <br> 
 
 		<br>
 		<br>
@@ -52,7 +52,7 @@
 
 		<br>
 
-		<h2> ISA </h2>
+		<hr> <h2 id=isa> ISA </h2>
 
 		<h3> Instructions: </h3>
 		<ul>
@@ -116,7 +116,7 @@ end:
 
 		</pre>
 
-		<h2> UNIFIED MEMORY </h2>
+		<hr> <h2 id=unified_memory> UNIFIED MEMORY </h2>
 		the main goal of this project was to unify memory <br>
 		unfortunately I dont remember attemps too well but the entire approach was very convoluted and ultimately could not work <br>
 		idea (as much as I remember) was to check whether data is already out and if so switch address <br>
@@ -139,24 +139,24 @@ end:
 		<a href="./Images/p16b2x_i4-cpu-control.png">full image</a><br>
 		<br>
 
-		<h2> VHDL </h2>
+		<hr> <h2 id=vhdl> VHDL </h2>
 		VHDL here was mostly like processor design of the 16b1x, giant pile of mess, not knowing what I am doing and trying to make things work <br>
 		921 lines of entities with their testbenches and CPU <br> 
 		most of which is VHDL boilerplate (that part did not change in later projects) and actual logic is simple, CPU body (connections between components and logic) has only 60 LOC<br>
 		most of which are whitespace or VHDL keywords <br>
 		other than that, it is almost 1:1 translation of first iteration <br> 
 
-		<h2> THE GOOD </h2>
+		<hr> <h2 id=the_good> THE GOOD </h2>
 		No disasters and fixed previous mistakes! <br>
 		instructions were allocated properly and format is pleasant to write assembler for (this time it was written almost immediattely, as it should) <br>
 		overall layout is also much nicer to look at however individual components are mostly identical as in 16b1x <br>
 
-		<h2> THE BAD </h2>
+		<hr> <h2 id=the_bad> THE BAD </h2>
 		no stupidly bad decisions and mistakes like last time, all are minor enough to land in THE UGLY <br>
 
-		<h2> THE UGLY </h2>
+		<hr> <h2 id=the_ugly> THE UGLY </h2>
 		Did not use ports even though there are somewhat specified in the ISA <br>
-		ISA coulds still be copy-pasted here and site would still be readable <br>
+		ISA could still be copy-pasted here and site would still be readable <br>
 		this is because CPU is so simple there is nothing to document, later ones radically improve on complexity (and being interesting) side <br>
 		<a href="https://en.wikipedia.org/wiki/NOP_slide">NOP slide</a> is still present and there is no <span class=code>halt</span> instruction so CPU always executes <br>
 

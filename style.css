@@ -16,3 +16,18 @@ a {
 .wsp {
 	white-space:       pre;
 }
+
+.todo {
+	color:             #FFFFFF; 
+	background-color:  #FF0000;
+}
+
+.comment {
+	color:             #007700; 
+	background-color:  #000000;
+}
+
+.aside {
+	color:             #77FF00; 
+	background-color:  #000000;
+}
