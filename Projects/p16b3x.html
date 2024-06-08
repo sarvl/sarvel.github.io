@@ -71,7 +71,7 @@
 			so this is the last project that focuses exclusively on simulation and there will be nothing new added<br>
 			the website still may change if bug in the description or explanation is found, if so there will be note on the main site <br>
 			<br>
-			some sections have only high level overview without much interesting details, that is because I simply do not remember them and they are not saved anywhere <br>
+			some sections have only high level overview without much interesting details, that is because I simply do not remember enough <br>
 			<br>
 			since this text is so long it is inevitable that some mistakes crawled in<br>
 			if there is anything that does not make sense or weirdly phrased, let me know <br>
@@ -1288,15 +1288,15 @@ rob0_src0   := (2 DOWNTO 0 =&gt; instr0_r0, OTHERS =&gt; '0')        WHEN instr0
 		<span class=wsp>  OOE         : 1272 cycles </span><br>
 		<br>
 		<span class=wsp>  IPC         :  1.13       </span><br>
-		<span class=wsp>  simple/OOE  :  0.70       </span><br>
+		<span class=wsp>  OOE/simple  :  0.70       </span><br>
 		<br>
 		<a href=https://github.com/sarvl/16bit_cpu/blob/main/tests/code/g05t02.asm>matrix multiply</a>: <br>
 		<span class=wsp>  instructions:  322        </span><br>
 		<span class=wsp>  simple      :  437 cycles </span><br>
 		<span class=wsp>  OOE         :  250 cycles </span><br>
 		<br>
-		<span class=wsp>  IPC         :  1.13       </span><br>
-		<span class=wsp>  simple/OOE  :  0.57       </span><br>
+		<span class=wsp>  IPC         :  1.29       </span><br>
+		<span class=wsp>  OOE/simple  :  0.57       </span><br>
 		<br>
 		<a href=https://github.com/sarvl/16bit_cpu/blob/main/tests/code/g05t05.asm>simulator</a>: <br>
 		<span class=wsp>  instructions: 2332        </span><br>
@@ -1304,7 +1304,7 @@ rob0_src0   := (2 DOWNTO 0 =&gt; instr0_r0, OTHERS =&gt; '0')        WHEN instr0
 		<span class=wsp>  OOE         : 1570 cycles </span><br>
 		<br>
 		<span class=wsp>  IPC         :  1.49       </span><br>
-		<span class=wsp>  simple/OOE  :  0.59       </span><br>
+		<span class=wsp>  OOE/simple  :  0.59       </span><br>
 		<br>
 		after slight source code modifications, simulator can be run at 1441 cycles making at run at ~0.54 time of simple one with IPC ~ 1.62 <br>
 		<br>

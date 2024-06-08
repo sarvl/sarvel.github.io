@@ -1,7 +1,7 @@
-body {
+html {
+	background-color:  #000000;
 	padding:           0% 10%; 
 	color:             #00FF00; 
-	background-color:  #000000;
 	font-family:       monospace;
 }
 a {
